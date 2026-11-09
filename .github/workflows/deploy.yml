@@ -29,8 +29,8 @@ jobs:
       - run: npm ci
       - name: Construire
         env:
-          # Adresse provisoire : /double-diese-site/. Passera à "/" au branchement de double-diese.fr.
-          BASE_PATH: /double-diese-site/
+          # Site servi à la racine de double-diese.fr
+          BASE_PATH: /
         run: npm run build
       - name: Page 404 qui renvoie vers le site
         run: cp dist/index.html dist/404.html
