@@ -8,7 +8,7 @@
 // double-diese.fr une fois le domaine branché sur GitHub Pages.
 const SITE_URL = "https://doublediese.github.io/double-diese-site";
 
-const SERVER_INFO = { name: "double-diese-mcp", title: "Double Dièse", version: "1.1.0" };
+const SERVER_INFO = { name: "double-diese-mcp", title: "Double Dièse", version: "1.2.0" };
 const INSTRUCTIONS =
   "Public tools exposing the Double Dièse portfolio: services, references, latest Bachtrack reviews, and the Substack newsletter 'Depuis le fond de la salle'. All data is public.";
 
@@ -81,7 +81,33 @@ export const USER_AGENT = "Mozilla/5.0 (compatible; DoubleDieseBuilder/1.0; +htt
 
 const FEEDS = {
   bachtrack: { url: BACHTRACK_URL, parse: (t) => parseBachtrack(t), file: "bachtrack-critiques.json" },
-  substack: { url: SUBSTACK_URL, parse: (t) => parseSubstack(t), file: "substack-posts.json" },
+  substack: {
+    url: SUBSTACK_URL,
+    parse: (t) => parseSubstack(t),
+    file: "substack-posts.json",
+    // Substack refuse les Workers Cloudflare (HTTP 429) : on passe alors par rss2json.com,
+    // service gratuit qui lit le flux RSS public et le renvoie en JSON.
+    alt: async () => {
+      const res = await fetch(
+        `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(SUBSTACK_URL)}`,
+        { cf: { cacheTtlByStatus: { "200-299": 21600, "300-599": 0 } } },
+      );
+      if (!res.ok) throw new Error(`rss2json HTTP ${res.status}`);
+      const data = await res.json();
+      if (data.status !== "ok") throw new Error(`rss2json ${data.message || data.status}`);
+      return (data.items || []).slice(0, 2).map((i) => ({
+        title: i.title,
+        link: i.link,
+        excerpt: strip(i.description || ""),
+        date: new Date(i.pubDate.replace(" ", "T") + "Z").toLocaleDateString("fr-FR", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }),
+        image: i.enclosure?.link || i.thumbnail || "",
+      }));
+    },
+  },
 };
 
 async function getFeed(name) {
@@ -98,6 +124,14 @@ async function getFeed(name) {
     return { source: "live", updatedAt: new Date().toISOString(), items };
   } catch (e) {
     liveError = String(e.message || e);
+  }
+  if (f.alt) {
+    try {
+      const items = await f.alt();
+      if (items.length) return { source: "relais", liveError, updatedAt: new Date().toISOString(), items };
+    } catch (e) {
+      liveError += ` ; ${e.message || e}`;
+    }
   }
   const data = await getJson(f.file);
   return {
