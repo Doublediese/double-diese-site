@@ -45,6 +45,9 @@ export const daCapo = {
     texte:
       "Double Dièse écrit les contenus ou reprend les vôtres, et le guide porte vos couleurs. Vos spectateurs vous appartiennent : vous êtes responsable de leurs données, aucun fichier n'est croisé d'un festival à l'autre.",
   },
+  // Indépendance du conseil vis-à-vis de l'outil (validée par Thibault le 9 novembre 2026)
+  independance:
+    "Nos missions de conseil restent indépendantes de Da Capo : nous ne vous le proposons que s'il répond à votre besoin.",
   bouton: "Voir Da Capo sur l'un de vos concerts",
   objetEmail: "Da Capo",
   // Bandeau de la page d'accueil

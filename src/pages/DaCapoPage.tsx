@@ -97,7 +97,8 @@ const DaCapoPage = () => {
             <h2 className="font-serif text-3xl md:text-4xl text-foreground">{daCapo.revient.titre}</h2>
             <span className="square-dot" />
           </div>
-          <p className="font-body text-lg md:text-xl text-foreground/80 leading-relaxed mb-12">{daCapo.revient.texte}</p>
+          <p className="font-body text-lg md:text-xl text-foreground/80 leading-relaxed mb-6">{daCapo.revient.texte}</p>
+          <p className="font-body italic text-base md:text-lg text-muted-foreground mb-12">{daCapo.independance}</p>
           <a href={mailto} className="btn-elegant-filled inline-flex items-center gap-2 text-base">
             {daCapo.bouton}
             <Send className="w-4 h-4" />
