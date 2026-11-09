@@ -32,8 +32,10 @@ jobs:
           # Site servi à la racine de double-diese.fr
           BASE_PATH: /
         run: npm run build
-      - name: Page 404 qui renvoie vers le site
-        run: cp dist/index.html dist/404.html
+      - name: Page 404 qui renvoie vers le site, et page /da-capo servie directement
+        run: |
+          cp dist/index.html dist/404.html
+          mkdir -p dist/da-capo && cp dist/index.html dist/da-capo/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

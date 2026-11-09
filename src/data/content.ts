@@ -23,6 +23,7 @@ export const siteContent = {
     logo: "Double Dièse",
     links: [
       { label: "Conseil", href: "#conseil" },
+      { label: "Da Capo", href: "/da-capo" },
       { label: "Médias", href: "#medias" },
       { label: "À propos", href: "#a-propos" },
       { label: "Contact", href: "#contact" },
@@ -36,7 +37,7 @@ export const siteContent = {
     // Baseline principale affichée sur l'image
     headline: "Donner plus de portée à vos projets musicaux",
     // Sous-titre descriptif
-    subheadline: "Conseil stratégique et accompagnement sur-mesure pour le secteur de la musique classique",
+    subheadline: "Stratégie et outils pour la musique classique, de la salle de réunion à la salle de concert.",
     // Texte du bouton principal
     ctaText: "Découvrir",
     ctaLink: "#conseil",

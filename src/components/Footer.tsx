@@ -24,7 +24,7 @@ const Footer = () => {
               {navigation.links.map((link) => (
                 <a
                   key={link.href}
-                  href={link.href}
+                  href={link.href.startsWith("#") ? `/${link.href}` : link.href}
                   className="font-body text-sm text-secondary-foreground/70 hover:text-primary transition-colors"
                 >
                   {link.label}
