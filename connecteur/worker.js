@@ -8,7 +8,7 @@
 // double-diese.fr une fois le domaine branché sur GitHub Pages.
 const SITE_URL = "https://doublediese.github.io/double-diese-site";
 
-const SERVER_INFO = { name: "double-diese-mcp", title: "Double Dièse", version: "1.2.0" };
+const SERVER_INFO = { name: "double-diese-mcp", title: "Double Dièse", version: "1.3.0" };
 const INSTRUCTIONS =
   "Public tools exposing the Double Dièse portfolio: services, references, latest Bachtrack reviews, and the Substack newsletter 'Depuis le fond de la salle'. All data is public.";
 
@@ -81,39 +81,16 @@ export const USER_AGENT = "Mozilla/5.0 (compatible; DoubleDieseBuilder/1.0; +htt
 
 const FEEDS = {
   bachtrack: { url: BACHTRACK_URL, parse: (t) => parseBachtrack(t), file: "bachtrack-critiques.json" },
-  substack: {
-    url: SUBSTACK_URL,
-    parse: (t) => parseSubstack(t),
-    file: "substack-posts.json",
-    // Substack refuse les Workers Cloudflare (HTTP 429) : on passe alors par rss2json.com,
-    // service gratuit qui lit le flux RSS public et le renvoie en JSON.
-    alt: async () => {
-      const res = await fetch(
-        `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(SUBSTACK_URL)}`,
-        { cf: { cacheTtlByStatus: { "200-299": 21600, "300-599": 0 } } },
-      );
-      if (!res.ok) throw new Error(`rss2json HTTP ${res.status}`);
-      const data = await res.json();
-      if (data.status !== "ok") throw new Error(`rss2json ${data.message || data.status}`);
-      return (data.items || []).slice(0, 2).map((i) => ({
-        title: i.title,
-        link: i.link,
-        excerpt: strip(i.description || ""),
-        date: new Date(i.pubDate.replace(" ", "T") + "Z").toLocaleDateString("fr-FR", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }),
-        image: i.enclosure?.link || i.thumbnail || "",
-      }));
-    },
-  },
+  // Substack refuse les Workers Cloudflare (HTTP 429, y compris via rss2json.com) :
+  // pas de lecture en direct, on sert la copie rafraîchie chaque nuit par la construction
+  // du site sur GitHub (scripts/fetch-substack.mjs).
+  substack: { url: null, file: "substack-posts.json" },
 };
 
 async function getFeed(name) {
   const f = FEEDS[name];
   let liveError = "";
-  try {
+  if (f.url) try {
     const res = await fetch(f.url, {
       headers: { "User-Agent": USER_AGENT },
       cf: { cacheTtlByStatus: { "200-299": 21600, "300-599": 0 } },
@@ -124,14 +101,6 @@ async function getFeed(name) {
     return { source: "live", updatedAt: new Date().toISOString(), items };
   } catch (e) {
     liveError = String(e.message || e);
-  }
-  if (f.alt) {
-    try {
-      const items = await f.alt();
-      if (items.length) return { source: "relais", liveError, updatedAt: new Date().toISOString(), items };
-    } catch (e) {
-      liveError += ` ; ${e.message || e}`;
-    }
   }
   const data = await getJson(f.file);
   return {
@@ -162,13 +131,15 @@ export function parseBachtrack(html, max = 5) {
   const items = [];
   const blockRe = /<div class='ar-shortform'[\s\S]*?(?=<div class='ar-shortform'|<div class='pl-af-pagination'|$)/g;
   for (const b of html.match(blockRe) || []) {
-    const link = b.match(/<h2><a href='(\/fr_FR\/[^']+)'[^>]*>([^<]+)<\/a><\/h2>/);
+    // Le titre peut contenir des balises (<i>Requiem</i>) ; le lien peut porter un
+    // paramètre de test A/B (?abversion=alt) qu'on retire.
+    const link = b.match(/<h2><a href='(\/fr_FR\/[^'?]+)[^']*'[^>]*>([\s\S]*?)<\/a><\/h2>/);
     if (!link) continue;
     const author = b.match(/<div class='ar-shortform-author'>([\s\S]*?)<\/div>/);
     const date = author?.[1].match(/,\s*([^<]+)$/)?.[1].trim() ?? "";
     const teaser = b.match(/<div class='article-teaser'>([\s\S]*?)<\/div>/);
     items.push({
-      title: decode(link[2]).trim(),
+      title: strip(link[2]),
       date,
       excerpt: teaser ? strip(teaser[1]) : "",
       link: "https://bachtrack.com" + link[1],
