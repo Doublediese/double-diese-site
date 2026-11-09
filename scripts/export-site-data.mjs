@@ -8,7 +8,7 @@ const { hero, conseil, about, contact } = siteContent;
 const data = {
   updatedAt: new Date().toISOString(),
   overview: {
-    hero,
+    hero: { ...hero, subheadline: hero.subheadline.replace(/\s*\|\s*/g, " ") },
     services: conseil.services,
     about: { name: about.name, role: about.role, bio: about.bio },
     contact: {
