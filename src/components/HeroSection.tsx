@@ -65,9 +65,13 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="font-body text-lg md:text-xl text-ivory/90 max-w-2xl mx-auto mb-10 drop-shadow-[0_1px_8px_rgba(200,164,92,0.15)]"
         >
-          Stratégie et outils pour la musique classique,
-          <br />
-          de la salle de réunion à la salle de concert.
+          {/* Le texte vient de content.ts ; un « | » y marque le retour à la ligne */}
+          {hero.subheadline.split("|").map((ligne, i) => (
+            <span key={i}>
+              {i > 0 && <br />}
+              {ligne.trim()}
+            </span>
+          ))}
         </motion.p>
 
         {/* CTA Button */}

@@ -37,7 +37,8 @@ export const siteContent = {
     // Baseline principale affichée sur l'image
     headline: "Donner plus de portée à vos projets musicaux",
     // Sous-titre descriptif
-    subheadline: "Stratégie et outils pour la musique classique, de la salle de réunion à la salle de concert.",
+    // Sous-titre ; le « | » marque le retour à la ligne
+    subheadline: "Stratégie et outils pour la musique classique, | de la salle de réunion à la salle de concert.",
     // Texte du bouton principal
     ctaText: "Découvrir",
     ctaLink: "#conseil",
