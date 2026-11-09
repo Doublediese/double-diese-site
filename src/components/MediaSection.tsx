@@ -3,6 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { siteContent } from "@/data/content";
 import { ExternalLink, Headphones, PenLine, Newspaper } from "lucide-react";
 
+// Worker Cloudflare du connecteur (connecteur/worker.js), qui sert aussi les flux à jour
+const FEEDS_URL = "https://double-diese-mcp.tdhauthuille.workers.dev";
+
 type SubstackPost = {
   title: string;
   link: string;
@@ -23,20 +26,27 @@ const MediaSection = () => {
   const [substackPosts, setSubstackPosts] = useState<SubstackPost[]>([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}bachtrack-critiques.json`, { cache: "no-cache" })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (data?.items?.length) setBachtrackCritiques(data.items);
-      })
-      .catch(() => {
-        /* fallback sur le contenu statique */
-      });
-    fetch(`${import.meta.env.BASE_URL}substack-posts.json`, { cache: "no-cache" })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (data?.items?.length) setSubstackPosts(data.items);
-      })
-      .catch(() => {});
+    // 1. Flux à jour servis par le Worker Cloudflare, 2. copie publiée avec le site,
+    // 3. contenu statique de content.ts (critiques seulement)
+    const load = async (remote: string, local: string) => {
+      for (const url of [remote, local]) {
+        try {
+          const r = await fetch(url, { cache: "no-cache", signal: AbortSignal.timeout(5000) });
+          const data = r.ok ? await r.json() : null;
+          if (data?.items?.length) return data.items;
+        } catch {
+          /* source suivante */
+        }
+      }
+      return null;
+    };
+    const base = import.meta.env.BASE_URL;
+    load(`${FEEDS_URL}/bachtrack.json`, `${base}bachtrack-critiques.json`).then((items) => {
+      if (items) setBachtrackCritiques(items);
+    });
+    load(`${FEEDS_URL}/substack.json`, `${base}substack-posts.json`).then((items) => {
+      if (items) setSubstackPosts(items);
+    });
   }, []);
 
   // Priorité : Bachtrack auto > contenu statique

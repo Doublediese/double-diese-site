@@ -17,7 +17,8 @@ const data = {
       ...contact.directContact,
     },
   },
-  references: conseil.clients ?? [],
+  // Le site n'affiche pas de logo client : champ retiré pour ne pas publier de valeur vide
+  references: (conseil.clients ?? []).map(({ logo, ...client }) => (logo ? { ...client, logo } : client)),
 };
 
 writeFileSync("public/site-data.json", JSON.stringify(data, null, 2));
