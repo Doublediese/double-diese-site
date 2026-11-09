@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  Double Dièse Design System
+  ===========================
+  Style: "Élégance Moderne & Rigueur Artistique"
+  Inspiré de l'édition musicale de luxe
+*/
+
+@layer base {
+  :root {
+    /* Fond ivoire chaleureux */
+    --background: 45 30% 98%;
+    --foreground: 0 0% 8%;
+
+    /* Cartes et surfaces */
+    --card: 45 25% 96%;
+    --card-foreground: 0 0% 8%;
+
+    --popover: 45 30% 98%;
+    --popover-foreground: 0 0% 8%;
+
+    /* Or/Doré - Couleur d'accent principale */
+    --primary: 42 75% 45%;
+    --primary-foreground: 45 30% 98%;
+
+    /* Noir profond pour éléments secondaires */
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 45 30% 98%;
+
+    /* Tons atténués */
+    --muted: 45 15% 92%;
+    --muted-foreground: 0 0% 35%;
+
+    /* Accent doré subtil */
+    --accent: 42 60% 55%;
+    --accent-foreground: 0 0% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 45 30% 98%;
+
+    --border: 42 20% 85%;
+    --input: 42 20% 88%;
+    --ring: 42 75% 45%;
+
+    --radius: 0.25rem;
+
+    /* Couleurs personnalisées Double Dièse */
+    --gold: 42 75% 45%;
+    --gold-light: 42 60% 65%;
+    --gold-dark: 42 80% 35%;
+    --ivory: 45 30% 98%;
+    --ivory-warm: 45 25% 94%;
+    --noir: 0 0% 8%;
+    --noir-soft: 0 0% 20%;
+
+    /* Ombres dorées */
+    --shadow-gold: 0 4px 20px -4px hsla(42, 75%, 45%, 0.25);
+    --shadow-soft: 0 4px 20px -4px hsla(0, 0%, 0%, 0.08);
+
+    /* Sidebar (non utilisé mais requis) */
+    --sidebar-background: 45 25% 96%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 42 75% 45%;
+    --sidebar-primary-foreground: 45 30% 98%;
+    --sidebar-accent: 45 15% 92%;
+    --sidebar-accent-foreground: 0 0% 8%;
+    --sidebar-border: 42 20% 85%;
+    --sidebar-ring: 42 75% 45%;
+  }
+
+  .dark {
+    --background: 0 0% 6%;
+    --foreground: 45 20% 95%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 45 20% 95%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 45 20% 95%;
+
+    --primary: 42 70% 50%;
+    --primary-foreground: 0 0% 6%;
+
+    --secondary: 45 15% 85%;
+    --secondary-foreground: 0 0% 6%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 45 10% 65%;
+
+    --accent: 42 60% 45%;
+    --accent-foreground: 45 20% 95%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 45 20% 95%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 42 70% 50%;
+
+    --gold: 42 70% 50%;
+    --gold-light: 42 55% 60%;
+    --gold-dark: 42 75% 40%;
+    --ivory: 45 20% 95%;
+    --ivory-warm: 45 15% 88%;
+    --noir: 0 0% 6%;
+    --noir-soft: 0 0% 15%;
+
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 45 15% 90%;
+    --sidebar-primary: 42 70% 50%;
+    --sidebar-primary-foreground: 0 0% 6%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 45 15% 90%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 42 70% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Crimson Text', Georgia, serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    @apply font-medium tracking-tight;
+  }
+
+  /* Élément graphique Double Dièse */
+  .double-diese::before {
+    content: '𝄪';
+    @apply text-primary mr-2;
+  }
+
+  /* Séparateur doré fin */
+  .gold-line {
+    @apply h-px bg-gradient-to-r from-transparent via-primary to-transparent;
+  }
+
+  /* Double barre verticale décorative */
+  .double-bar {
+    @apply relative pl-4;
+  }
+  
+  .double-bar::before {
+    content: '';
+    @apply absolute left-0 top-0 bottom-0 w-px bg-primary;
+  }
+  
+  .double-bar::after {
+    content: '';
+    @apply absolute left-1.5 top-0 bottom-0 w-px bg-primary/50;
+  }
+
+  /* Point carré inspiré notation musicale */
+  .square-dot {
+    @apply inline-block w-1.5 h-1.5 bg-primary rotate-45;
+  }
+}
+
+@layer components {
+  /* Bouton élégant avec effet doré */
+  .btn-elegant {
+    @apply inline-flex items-center justify-center px-6 py-3 
+           bg-transparent border border-primary text-primary
+           font-medium tracking-wide uppercase text-sm
+           transition-all duration-300 ease-out
+           hover:bg-primary hover:text-primary-foreground
+           focus:outline-none focus:ring-2 focus:ring-primary/50;
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .btn-elegant-filled {
+    @apply btn-elegant bg-primary text-primary-foreground
+           hover:bg-gold-dark hover:border-gold-dark;
+  }
+
+  /* Lien avec soulignement doré animé */
+  .link-gold {
+    @apply relative inline-block text-foreground transition-colors duration-300;
+  }
+
+  .link-gold::after {
+    content: '';
+    @apply absolute left-0 bottom-0 w-0 h-px bg-primary transition-all duration-300;
+  }
+
+  .link-gold:hover::after {
+    @apply w-full;
+  }
+
+  .link-gold:hover {
+    @apply text-primary;
+  }
+
+  /* Card avec bordure dorée subtile */
+  .card-elegant {
+    @apply bg-card border border-border/50 p-6 
+           transition-all duration-300 ease-out
+           hover:border-primary/30 hover:shadow-lg;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .card-elegant:hover {
+    box-shadow: var(--shadow-gold);
+  }
+}
+
+@layer utilities {
+  /* Animation de révélation au scroll */
+  .reveal {
+    @apply opacity-0 translate-y-8;
+  }
+
+  .reveal.visible {
+    @apply opacity-100 translate-y-0 transition-all duration-700 ease-out;
+  }
+
+  /* Overlay dégradé pour hero */
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      hsla(0, 0%, 0%, 0.3) 0%,
+      hsla(0, 0%, 0%, 0.5) 50%,
+      hsla(0, 0%, 0%, 0.7) 100%
+    );
+  }
+
+  /* Lueur dorée subtile */
+  .gold-glow {
+    box-shadow: 0 0 60px 20px hsla(42, 75%, 45%, 0.15);
+  }
+
+  /* Texte avec dégradé doré */
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      hsl(42, 75%, 55%) 0%,
+      hsl(42, 80%, 45%) 50%,
+      hsl(42, 70%, 60%) 100%
+    );
+  }
+}
