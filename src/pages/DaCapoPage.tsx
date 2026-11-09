@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Send } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AdresseEmail from "@/components/AdresseEmail";
 import { daCapo } from "@/data/dacapo";
 import { siteContent } from "@/data/content";
 
@@ -103,6 +104,9 @@ const DaCapoPage = () => {
             {daCapo.bouton}
             <Send className="w-4 h-4" />
           </a>
+          <p className="mt-6 text-lg text-foreground">
+            <AdresseEmail email={email} sujet={daCapo.objetEmail} />
+          </p>
         </motion.div>
       </section>
 

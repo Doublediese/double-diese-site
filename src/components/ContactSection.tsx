@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { siteContent } from "@/data/content";
+import AdresseEmail from "@/components/AdresseEmail";
 import { Send, Phone, Linkedin, Newspaper } from "lucide-react";
 
 const ContactSection = () => {
@@ -80,10 +81,8 @@ const ContactSection = () => {
                 {contact.cta}
                 <Send className="w-4 h-4" />
               </a>
-              <p className="mt-6 font-body text-lg text-foreground break-all">
-                <a href={mailto} className="hover:text-primary transition-colors">
-                  {email}
-                </a>
+              <p className="mt-6 text-lg text-foreground">
+                <AdresseEmail email={email} sujet={contact.mailSubject} />
               </p>
               {phone && (
                 <a
