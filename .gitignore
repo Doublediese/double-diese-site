@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Généré à chaque construction par scripts/export-site-data.mjs
+public/site-data.json

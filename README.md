@@ -14,3 +14,7 @@ En local :
 npm ci
 npm run dev
 ```
+
+## Connecteur Claude
+
+`connecteur/worker.js` est le serveur MCP du connecteur Claude « Double Dièse », déployé comme Worker Cloudflare (copier-coller dans l'éditeur de Cloudflare). Il lit `site-data.json` (produit à chaque construction depuis `content.ts`), `bachtrack-critiques.json` et `substack-posts.json` sur le site publié.

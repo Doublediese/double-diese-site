@@ -9,7 +9,11 @@ function fetchExternalDataPlugin() {
   const run = () => {
     if (ran) return;
     ran = true;
-    for (const script of ["scripts/fetch-bachtrack.mjs", "scripts/fetch-substack.mjs"]) {
+    for (const script of [
+      "scripts/export-site-data.mjs",
+      "scripts/fetch-bachtrack.mjs",
+      "scripts/fetch-substack.mjs",
+    ]) {
       const res = spawnSync("node", [script], { stdio: "inherit" });
       if (res.status !== 0) {
         console.warn(`[vite] ${script} terminé avec code`, res.status);
