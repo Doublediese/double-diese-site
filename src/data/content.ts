@@ -216,20 +216,14 @@ C’est cette double lecture interne et externe qui me permet de construire des 
   contact: {
     title: "Contact",
     introduction: "Vous avez un projet ? Discutons de la manière dont je peux vous accompagner.",
-    // Labels des champs du formulaire
-    form: {
-      name: "Nom",
-      email: "Email",
-      phone: "Téléphone",
-      subject: "Sujet",
-      message: "Message",
-      submit: "Envoyer",
-      subjectOptions: ["Conseil stratégique", "Communication", "Collaboration podcast", "Autre"],
-    },
-    // Informations de contact directes (optionnel)
+    // Bouton principal : ouvre la messagerie du visiteur
+    cta: "Écrivez-moi",
+    // Objet proposé dans l'email (le visiteur peut le modifier)
+    mailSubject: "Prise de contact",
+    // Informations de contact directes
     directContact: {
       email: "tdhauthuille@double-diese.fr",
-      // Laisser vide si non souhaité
+      // Laisser vide pour ne pas afficher de téléphone. Format libre, ex. "06 12 34 56 78"
       phone: "",
       linkedin: "https://linkedin.com/in/tdhauthuille",
       substack: "https://depuislefonddelasalle.substack.com/",
