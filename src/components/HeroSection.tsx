@@ -65,9 +65,9 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="font-body text-lg md:text-xl text-ivory/90 max-w-2xl mx-auto mb-10 drop-shadow-[0_1px_8px_rgba(200,164,92,0.15)]"
         >
-          Conseil stratégique et accompagnement sur-mesure
+          Stratégie et outils pour la musique classique,
           <br />
-          pour le secteur de la musique classique
+          de la salle de réunion à la salle de concert.
         </motion.p>
 
         {/* CTA Button */}

@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/data/content";
 import { Menu, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { navigation } = siteContent;
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,8 +19,18 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // "#section" : défile sur l'accueil (ou y revient depuis une autre page) ; "/page" : change de page
   const scrollToSection = (href: string) => {
     setIsMobileMenuOpen(false);
+    if (href.startsWith("/")) {
+      navigate(href);
+      window.scrollTo({ top: 0 });
+      return;
+    }
+    if (location.pathname !== "/") {
+      navigate(`/${href}`);
+      return;
+    }
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -39,9 +52,10 @@ const Header = () => {
         <div className="container flex items-center justify-between">
           {/* Logo */}
           <a
-            href="#"
+            href="/"
             onClick={(e) => {
               e.preventDefault();
+              if (location.pathname !== "/") navigate("/");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className="font-serif text-xl md:text-2xl font-medium tracking-wide group"
