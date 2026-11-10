@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { siteContent } from "@/data/content";
 import { ChevronDown } from "lucide-react";
 import heroImage from "@/assets/hero-concert.jpg";
+import { SigneDoubleDiese } from "@/components/Logo";
 
 const HeroSection = () => {
   const { hero } = siteContent;
@@ -37,7 +38,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-8"
         >
-          <span className="text-primary text-5xl md:text-6xl font-serif">𝄪</span>
+          <SigneDoubleDiese className="w-10 h-10 md:w-12 md:h-12 mx-auto" />
         </motion.div>
 
         {/* Headline */}

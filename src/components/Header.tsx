@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/data/content";
 import { Menu, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { LogoDoubleDiese } from "@/components/Logo";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -58,15 +59,9 @@ const Header = () => {
               if (location.pathname !== "/") navigate("/");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="font-serif text-xl md:text-2xl font-medium tracking-wide group"
+            className={`block transition-colors duration-300 ${isScrolled ? "text-foreground" : "text-ivory"}`}
           >
-            <span className={`transition-colors duration-300 ${isScrolled ? "text-foreground" : "text-ivory"}`}>
-              Double
-            </span>
-            <span className="text-primary mx-1">𝄪</span>
-            <span className={`transition-colors duration-300 ${isScrolled ? "text-foreground" : "text-ivory"}`}>
-              Dièse
-            </span>
+            <LogoDoubleDiese className="h-6 md:h-7 w-auto" />
           </a>
 
           {/* Desktop Navigation */}

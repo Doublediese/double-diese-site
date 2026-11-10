@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
+import { SigneDoubleDiese } from "@/components/Logo";
 
 const NotFound = () => {
   const location = useLocation();
@@ -12,7 +13,7 @@ const NotFound = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
       <div className="text-center">
-        <span className="text-primary text-5xl font-serif mb-4 block">𝄪</span>
+        <SigneDoubleDiese className="w-12 h-12 mx-auto mb-4" />
         <h1 className="mb-4 font-serif text-5xl text-foreground">404</h1>
         <p className="mb-6 font-body text-xl text-muted-foreground">
           Page introuvable

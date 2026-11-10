@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/data/content";
 import { X } from "lucide-react";
+import { LogoDoubleDiese } from "@/components/Logo";
 
 const Footer = () => {
   const { legal, navigation } = siteContent;
@@ -13,11 +14,7 @@ const Footer = () => {
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Logo */}
-            <div className="font-serif text-lg">
-              <span>Double</span>
-              <span className="text-primary mx-1">𝄪</span>
-              <span>Dièse</span>
-            </div>
+            <LogoDoubleDiese className="h-5 w-auto" />
 
             {/* Navigation */}
             <nav className="flex items-center gap-6">
