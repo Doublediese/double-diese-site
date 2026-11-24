@@ -202,14 +202,15 @@ export const siteContent = {
   about: {
     title: "À propos",
     name: "Thibault d'Hauthuille",
-    role: "Consultant en musique classique",
+    role: "Conseil en musique classique · fondateur de Leggio",
     // Remplacez par l'URL de votre photo
     photo: "",
-    // Votre biographie (quelques lignes)
-    bio: `Je travaille au croisement de la stratégie et de la musique.
-Après un parcours en direction du marketing et de la communication (15 ans en entreprise, 15 ans dans l'univers associatif dont 7 comme dirigeant), j’accompagne aujourd’hui des acteurs du secteur musical : artistes, agences, festivals, institutions, dans le développement de leurs projets : structuration, modèle économique, marketing, outils et relation aux publics.
-En parallèle, mon activité d’auteur (critique, conférences, podcasts, newsletter) nourrit une compréhension fine des œuvres, des artistes et des attentes des publics.
-C’est cette double lecture interne et externe qui me permet de construire des stratégies solides, mais aussi des contenus justes, lisibles et engageants.`,
+    // Biographie validée par Thibault le 24 novembre 2026 (un paragraphe par ligne vide)
+    bio: `J'écoute la musique depuis le fond de la salle, et c'est de là que je travaille : du côté de celui qui a pris un billet et voudrait comprendre ce qu'il va entendre.
+
+Pendant trente ans, j'ai dirigé le marketing et la communication, quinze ans en entreprise et quinze ans dans le monde associatif, dont sept comme dirigeant. J'ai été rédacteur en chef d'une revue tirée à 700 000 exemplaires et directeur d'une radio. J'accompagne aujourd'hui festivals, institutions, ensembles et agences sur leur stratégie et leur relation aux publics.
+
+J'écris aussi : des critiques pour Bachtrack, une newsletter, « Depuis le fond de la salle », et un podcast sur l'histoire de la musique, « Révolutions en musique ». Leggio est né de ces deux métiers. Le conseil m'a appris ce dont une salle a besoin pour garder son public, l'écriture ce qu'il faut à un auditeur pour entendre vraiment une œuvre. Leggio est un guide d'écoute pour chaque concert, que je conçois et dont je réponds.`,
   },
 
   // ============================================
