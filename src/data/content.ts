@@ -23,7 +23,7 @@ export const siteContent = {
     logo: "Double Dièse",
     links: [
       { label: "Conseil", href: "#conseil" },
-      { label: "Da Capo", href: "/da-capo" },
+      { label: "Leggio", href: "/leggio" },
       { label: "Médias", href: "#medias" },
       { label: "À propos", href: "#a-propos" },
       { label: "Contact", href: "#contact" },
